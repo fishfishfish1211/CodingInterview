@@ -1,0 +1,28 @@
+class MinStack {
+    private Stack<Integer> data;
+    private Stack<Integer> min;
+
+    /** initialize your data structure here. */
+    public MinStack() {
+        data = new Stack<>();
+        min = new Stack<>();
+    }
+    
+    public void push(int x) {
+        data.push(x);
+        if (min.isEmpty() || x <= min.peek()) min.push(x);
+    }
+    
+    public void pop() {
+        // 此处比较必须用equals，而不能用==
+        if (min.peek().equals(data.pop())) min.pop();
+    }
+    
+    public int top() {
+        return data.peek();
+    }
+    
+    public int getMin() {
+        return min.peek();
+    }
+}
