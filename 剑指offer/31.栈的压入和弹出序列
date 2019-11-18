@@ -1,0 +1,22 @@
+public boolean isPopOrder(int [] pushV,int [] popV) {
+    if (pushV == null && popV == null) return true;
+    if (pushV == null || popV == null || pushV.length != popV.length) return false;
+
+    int in = 0, out = 0;
+    Stack<Integer> s = new Stack<>();
+    while (in < pushV.length) {
+        if (!s.isEmpty() && s.peek() == popV[out]) {
+            s.pop();
+            ++out;
+        } else {
+            s.push(pushV[in++]);
+        }
+    }
+
+    while (!s.isEmpty() && s.peek() == popV[out]) {
+        s.pop();
+        ++out;
+    }
+
+    return out == popV.length;
+}
