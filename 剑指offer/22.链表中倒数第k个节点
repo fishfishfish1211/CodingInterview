@@ -1,0 +1,13 @@
+public ListNode findKthToTail(ListNode pListHead, int k) {
+    ListNode front = pListHead;
+    while (front != null && k-- > 0) front = front.next;
+    if (k > 0) return null;
+
+    ListNode rear = pListHead;
+    while (front != null) {
+        front = front.next;
+        rear = rear.next;
+    }
+
+    return rear;
+}
