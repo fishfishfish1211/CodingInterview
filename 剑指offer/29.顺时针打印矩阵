@@ -1,0 +1,28 @@
+public int[] printMatrix(int[][] matrix) {
+    if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) return new int[0];
+
+    int[] res = new int[matrix.length * matrix[0].length];        
+    int index = 0;
+    int r1 = 0, c1 = 0;
+    int r2 = matrix.length - 1, c2 = matrix[r2].length - 1;
+
+    while (r1 <= r2 && c1 <= c2) index = printEdge(matrix, r1++, c1++, r2--, c2--, res, index);
+
+    return res;
+}
+
+private int printEdge(int[][] m, int r1, int c1, int r2, int c2, int[] res, int index) {
+    if (c1 == c2) {
+        for (int r = r1; r <= r2; ++r) res[index++] = m[r][c1];
+    } else if (r1 == r2) {
+        for (int c = c1; c <= c2; ++c) res[index++] = m[r1][c];
+    } else {
+        int r = r1, c = c1;
+        while (c < c2) res[index++] = m[r][c++];
+        while (r < r2) res[index++] = m[r++][c];
+        while (c > c1) res[index++] = m[r][c--];
+        while (r > r1) res[index++] = m[r--][c];
+    }
+
+    return index;
+}
