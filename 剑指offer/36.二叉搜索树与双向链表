@@ -1,0 +1,84 @@
+// solution 1: recursion
+private TreeNode head;
+private TreeNode pre;
+
+public TreeNode convert(TreeNode root) {
+    dfs(root);
+
+    return head;
+}
+
+private void dfs(TreeNode root) {
+    if (root == null) return;
+
+    dfs(root.left);
+
+    if (head == null) head = root;
+
+    if (pre != null) {
+        pre.right = root;
+        root.left = pre;
+    }
+    pre = root;
+
+    dfs(root.right);
+}
+
+// solution 2: iteration
+public TreeNode convert(TreeNode root) {
+    Stack<TreeNode> stack = new Stack<>();
+    TreeNode head = null, pre = null;
+    while (!stack.isEmpty() || root != null) {
+        while (root != null) {
+            stack.push(root);
+            root = root.left;
+        }
+
+        root = stack.pop();
+
+        if (head == null) head = root;
+
+        if (pre != null)  {
+            pre.right = root;
+            root.left = pre;
+        }
+        pre = root;
+
+        root = root.right;
+    }
+
+    return head;
+}
+
+// solution 3: Morris Traversal
+public TreeNode convert(TreeNode root) {
+    TreeNode head = null, pre = null;
+    while (root != null) {
+        if (root.left != null) {
+            TreeNode mostRight = root.left;
+            while (mostRight.right != null && mostRight.right != root)
+                mostRight = mostRight.right;
+
+            if (mostRight.right == null) {
+                mostRight.right = root;
+                root = root.left;
+            } else {
+                root.left = pre;
+                pre = root;
+                root = root.right;
+            }
+        } else {
+            if (head == null) head = root;
+
+            if (pre != null) {
+                pre.right = root;
+                root.left = pre;
+            }
+            pre = root;
+
+            root = root.right;
+        }
+    }
+
+    return head;
+}
