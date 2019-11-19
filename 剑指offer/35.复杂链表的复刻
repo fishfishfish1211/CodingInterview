@@ -1,0 +1,55 @@
+// solution 1:
+public ListNode copyRandomList(ListNode head) {
+    HashMap<ListNode, ListNode> map = new HashMap<>();
+
+    ListNode cur = head;
+    while (cur != null) {
+        map.put(cur, new ListNode(cur.val));
+        cur = cur.next;
+    }
+
+    cur = head;
+    while (cur != null) {
+        ListNode copy = map.get(cur);
+        copy.next = map.getOrDefault(cur.next, null);
+        copy.random = map.getOrDefault(cur.random, null);
+        cur = cur.next;
+    }
+
+    return map.getOrDefault(head, null);
+}
+
+// solution 2:
+public ListNode copyRandomList(ListNode head) {
+    ListNode cur = head;
+    while (cur != null) {
+        ListNode copy = new ListNode(cur.val);
+        copy.next = cur.next;
+        cur.next = copy;
+        cur = copy.next;
+    }
+
+    cur = head;
+    while (cur != null) {
+        cur.next.random = cur.random == null ? null : cur.random.next;
+        cur = cur.next.next;
+    }
+
+    // split linked list
+    ListNode oldFakeHead = new ListNode(0);
+    ListNode newFakeHead = new ListNode(-1);
+    ListNode oldTail = oldFakeHead, newTail = newFakeHead;
+    cur = head;
+    while (cur != null) {
+        oldTail.next = cur;
+        oldTail = oldTail.next;
+        cur = cur.next;
+
+        newTail.next = cur;
+        newTail = newTail.next;
+        cur = cur.next;
+    }
+    oldTail.next = null;
+
+    return newFakeHead.next;
+}
