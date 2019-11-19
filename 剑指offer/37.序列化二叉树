@@ -1,0 +1,37 @@
+// Encodes a tree to a single string.
+String serialize(TreeNode root) {
+    StringBuilder sb = new StringBuilder();
+    serialize(root, sb);
+    return sb.toString();
+}
+
+private void serialize(TreeNode root, StringBuilder sb) {
+    if (root == null) {
+        sb.append("#!");
+        return;
+    }
+
+    sb.append(root.val).append('!');
+    serialize(root.left, sb);
+    serialize(root.right, sb);
+}
+
+// Decodes your encoded data to tree.
+TreeNode deserialize(String data) {
+    String[] vals = data.split("!");
+    Queue<String> q = new LinkedList<>();
+    for (String val : vals) q.add(val);
+    TreeNode root = deserialize(q);
+    return root;
+}
+
+private TreeNode deserialize(Queue<String> q) {
+    String val = q.poll();
+    if ("#".equals(val)) return null;
+
+    TreeNode root = new TreeNode(Integer.valueOf(val));
+    root.left = deserialize(q);
+    root.right = deserialize(q);
+
+    return root;
+}
