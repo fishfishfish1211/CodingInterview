@@ -1,0 +1,16 @@
+public boolean verifySequenceOfBST(int [] seq) {
+    if (seq == null) return true;
+
+    return recur(seq, 0, seq.length - 1);
+}
+
+private boolean recur(int[] seq, int left, int right) {
+    if (left >= right) return true;
+
+    int mid = left;
+    while (mid < right && seq[mid] < seq[right]) ++mid;
+
+    for (int i = mid; i < right; ++i) if (seq[i] < seq[right]) return false;
+
+    return recur(seq, left, mid - 1) && recur(seq, mid, right - 1);
+}
