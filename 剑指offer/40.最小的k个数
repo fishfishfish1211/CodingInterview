@@ -1,0 +1,39 @@
+// solution 1:
+// description: maintaining a heap
+// time complexity: O(NlogK)
+// space complexity: O(K)
+public List<Integer> getLeastNumbers_Solution(int [] input, int k) {
+    LinkedList<Integer> res = new LinkedList<>();
+    if (input == null || input.length == 0 || input.length < k) return res;
+
+    PriorityQueue<Integer> heap = new PriorityQueue<>(new Comparator<Integer>() {
+        @Override
+        public int compare(Integer i1, Integer i2) {
+            return i2 - i1;
+        }
+    });
+
+    for (int i = 0; i < k; ++i) heap.add(input[i]);
+
+    for (int i = k; i < input.length; ++i) {
+        if (input[i] < heap.peek()) {
+            heap.poll();
+            heap.add(input[i]);
+        }
+    }
+
+    while (!heap.isEmpty()) res.addFirst(heap.poll());
+
+    return res;
+}
+
+// solution 2:
+// description: quick select, using partition process in quick sort
+// time complexity: O(N)
+// space complexity: O(1)
+To supplement...
+
+// solution 2 improved:
+// description: get the pivot number by using median of median process of BFPRT's algorithm, then repeat solution 2 process
+// time complexity: O(N)
+// space complexity: O(N)
