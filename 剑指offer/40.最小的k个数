@@ -31,7 +31,47 @@ public List<Integer> getLeastNumbers_Solution(int [] input, int k) {
 // description: quick select, using partition process in quick sort
 // time complexity: O(N)
 // space complexity: O(1)
-To supplement...
+public List<Integer> getLeastNumbers_Solution(int [] input, int k) {
+    List<Integer> res = new LinkedList<>();
+
+    if (input == null || input.length == 0 || input.length < k) return res;
+
+    int left = 0, right = input.length - 1;
+    while (left < right) {
+        int pivot = left + (int) ((right - left + 1) * Math.random());
+        swap(input, right, pivot);
+
+        int[] border = partition(input, left, right);
+
+        if (k - 1 >= border[0] && k - 1 <= border[1]) break;
+        if (k - 1 < border[0]) right = border[0] - 1;
+        else left = border[1] + 1;
+    }
+
+    Arrays.sort(input, 0, k - 1);
+    for (int i = 0; i < k; ++i) res.add(input[i]);
+
+    return res;
+}
+
+private int[] partition(int[] arr, int left, int right) {
+    int less = left - 1, more = right;
+    int cur = left;
+    while (cur < more) {
+        if (arr[cur] < arr[right]) swap(arr, cur++, ++less);
+        else if (arr[cur] > arr[right]) swap(arr, cur, --more);
+        else ++cur;
+    }
+    swap(arr, more, right);
+
+    return new int[] {less + 1, more};
+}
+
+private void swap(int[] arr, int i, int j) {
+    int tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+}
 
 // solution 2 improved:
 // description: get the pivot number by using median of median process of BFPRT's algorithm, then repeat solution 2 process
