@@ -1,0 +1,14 @@
+public char firstNotRepeatingChar(String s) {
+    int[] cnt = new int[128];
+    for (int i = 0; i < s.length(); ++i) ++cnt[s.charAt(i)];
+
+    char res = '#';
+    for (int i = 0; i < s.length(); ++i) {
+        if (cnt[s.charAt(i)] == 1) {
+            res = s.charAt(i);
+            break;
+        }
+    }
+
+    return res;
+}
