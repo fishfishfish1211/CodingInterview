@@ -1,0 +1,20 @@
+public int digitAtIndex(int n) {
+    long i = 1, s = 9, base = 1, N = n;
+
+    // 1.求是几位数
+    while (N > i * s) {
+        N -= i * s;
+        ++i;
+        s *= 10;
+        base *= 10;
+    }
+
+    // 2.求是第几个数
+    long val = base - 1 + (long) Math.ceil(1.0 * N / i);
+
+    // 3.求是第几位
+    long index = N % i == 0 ? i : N % i;
+    for (long j = i - index; j > 0; --j) val /= 10;
+
+    return (int) val % 10;
+}
