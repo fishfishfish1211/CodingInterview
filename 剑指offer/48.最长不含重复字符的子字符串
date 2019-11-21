@@ -1,0 +1,17 @@
+public int longestSubstringWithoutDuplication(String s) {
+    if (s == null) return 0;
+
+    HashSet<Character> set = new HashSet<>();
+    int max = 0, j = 0;
+    for (int i = 0; i < s.length(); ++i) {
+        char c = s.charAt(i);
+        if (set.contains(c)) {
+            max = Math.max(set.size(), max);
+            while (set.contains(c)) set.remove(s.charAt(j++));
+        }
+        set.add(c);
+    }
+    max = Math.max(set.size(), max);
+
+    return max;
+}
