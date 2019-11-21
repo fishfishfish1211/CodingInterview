@@ -1,0 +1,16 @@
+public String printMinNumber(int[] nums) {
+    Integer[] arr = new Integer[nums.length];
+    for (int i = 0; i < arr.length; ++i) arr[i] = nums[i];
+
+    Arrays.sort(arr, new Comparator<Integer>() {
+        @Override
+        public int compare(Integer num1, Integer num2) {
+            return ("" + num1 + num2).compareTo("" + num2 + num1);
+        }
+    });
+
+    StringBuilder res = new StringBuilder();
+    for (int num : arr) res.append(num);
+
+    return res.toString();
+}
