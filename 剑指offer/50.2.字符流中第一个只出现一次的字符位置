@@ -1,0 +1,14 @@
+private int[] stat = new int[256];
+private Deque<Character> deque = new LinkedList<>();
+
+//Insert one char from stringstream   
+public void insert(char ch) {
+    if (stat[ch] == 0) deque.add(ch);
+    ++stat[ch];
+
+    while (!deque.isEmpty() && stat[deque.peekFirst()] >= 2) deque.pollFirst();
+}
+//return the first appearence once char in current stringstream
+public char firstAppearingOnce() {
+    return deque.isEmpty() ? '#' : deque.peekFirst();
+}
