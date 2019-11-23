@@ -1,0 +1,25 @@
+public boolean isBalanced(TreeNode root) {
+    return dfs(root).b;
+}
+
+private Data dfs(TreeNode root) {
+    if (root == null) return new Data(true, 0);
+
+    Data left = dfs(root.left);
+    if (!left.b) return new Data(false, 0);
+
+    Data right = dfs(root.right);
+    if (!right.b || Math.abs(left.h - right.h) > 1) return new Data(false, 0);
+
+    return new Data(true, 1 + Math.max(left.h, right.h));
+}
+
+class Data {
+    boolean b;
+    int h;
+
+    public Data(boolean b, int h) {
+        this.b = b;
+        this.h = h;
+    }
+}
