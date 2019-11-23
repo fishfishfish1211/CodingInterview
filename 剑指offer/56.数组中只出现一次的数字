@@ -2,12 +2,11 @@ public int[] findNumsAppearOnce(int[] nums) {
     int xor = 0;
     for (int num : nums) xor ^= num;
 
-    int i = 0;
-    while (((xor >> i) & 1) == 0) ++i;
+    int diff = x & (-x);
 
     int sum = 0;
     for (int num : nums)
-        if (((num >> i) & 1) == 1) sum ^= num;
+        if ((num & diff) == 1) sum ^= num;
 
     return new int[]{sum, xor ^ sum};
 }
