@@ -1,0 +1,21 @@
+public List<List<Integer> > findContinuousSequence(int sum) {
+    List<List<Integer>> res = new LinkedList<>();
+
+    Deque<Integer> deque = new LinkedList<>();
+    int i = 1, tmp = 0;
+    while (i < sum) {
+        if (tmp < sum) {
+            tmp += i;
+            deque.addLast(i++);
+        }
+
+        if (tmp > sum) {
+            tmp -= deque.pollFirst();
+        } else if (tmp == sum) {
+            res.add(new LinkedList<>(deque));
+            tmp -= deque.pollFirst();
+        }
+    }
+
+    return res;
+}
