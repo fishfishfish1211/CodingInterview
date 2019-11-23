@@ -1,0 +1,15 @@
+public TreeNode kthNode(TreeNode root, int k) {
+    int[] i = new int[]{k};
+    return inOrderTraversal(root, i);
+}
+
+private TreeNode inOrderTraversal(TreeNode root, int[] i) {
+    if (root == null) return null;
+
+    TreeNode res = inOrderTraversal(root.left, i);
+    if (res != null) return res;
+
+    if (--i[0] == 0) return root;
+
+    return inOrderTraversal(root.right, i);
+}
