@@ -1,0 +1,9 @@
+public int[] findNumbersWithSum(int[] nums, int target) {
+    HashSet<Integer> set = new HashSet<>();
+    for (int num : nums) {
+        int n = target - num;
+        if (set.contains(n)) return new int[]{n, num};
+        set.add(num);
+    }
+    return new int[0];
+}
