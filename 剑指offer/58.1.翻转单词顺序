@@ -1,0 +1,27 @@
+public String reverseWords(String s) {
+    if (s == null) return null;
+
+    char[] chs = s.toCharArray();
+
+    int i = 0;
+    while (i < chs.length) {
+        int j = i;
+        while (j < chs.length && chs[j] != ' ') ++j;
+        reverse(chs, i, j - 1);
+        i = j + 1;
+    }
+
+    reverse(chs, 0, chs.length - 1);
+
+    return new String(chs);
+}
+
+private void reverse(char[] chs, int i, int j) {
+    while (i < j) {
+        char c = chs[i];
+        chs[i] = chs[j];
+        chs[j] = c;
+        ++i;
+        --j;
+    }
+}
