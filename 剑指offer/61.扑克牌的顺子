@@ -1,0 +1,20 @@
+public boolean isContinuous(int [] numbers) {
+    if (numbers == null || numbers.length != 5) return false;
+
+    int[] cards = new int[14];
+    for (int num : numbers) ++cards[num];
+
+    int index = 1;
+    while (cards[index] == 0) ++index;
+
+    for (int i = index, end = index + 5; i < end; ++i) {
+        if (cards[i] > 1) return false;
+
+        if (cards[i] == 0) {
+            if (cards[0] == 0) return false;
+            --cards[0];
+        }
+    }
+
+    return true;
+}
