@@ -1,0 +1,9 @@
+public int maxDiff(int[] nums) {
+    int min = Integer.MAX_VALUE, profit = 0;
+    for (int num : nums) {
+        if (num > min) profit = Math.max(num - min, profit);
+        else min = num;
+    }
+
+    return profit;
+}
