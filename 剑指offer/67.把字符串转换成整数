@@ -1,0 +1,26 @@
+public int strToInt(String str) {
+    if (str == null || str.length() == 0) return 0;
+
+    int i = 0;
+    while (i < str.length() && str.charAt(i) == ' ') ++i;
+
+    long sign = 1;
+    if (str.charAt(i) == '-') {
+        sign = -1;
+        ++i;
+    } else if (str.charAt(i) == '+') ++i;
+
+    long val = 0;
+    while (i < str.length()) {
+        char c = str.charAt(i);
+        if (c >= '0' && c <= '9') val = val * 10 + c - '0';
+        else break;
+        ++i;
+    }
+
+    val *= sign;
+    val = Math.min(val, Integer.MAX_VALUE);
+    val = Math.max(val, Integer.MIN_VALUE);
+
+    return (int) val;
+}
