@@ -1,0 +1,12 @@
+    public int integerBreak(int n) {
+        if (n <= 3) return n - 1;
+        
+        int remainder = n % 3;
+        
+        double res;
+        if (remainder == 0) res = Math.pow(3, n / 3);
+        else if (remainder == 1) res = 4 * Math.pow(3, n / 3 - 1);
+        else res = 2 * Math.pow(3, n / 3);
+        
+        return (int) res;
+    }
