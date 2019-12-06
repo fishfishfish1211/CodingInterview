@@ -1,0 +1,19 @@
+public int numberOfArithmeticSlices(int[] A) {
+    if (A == null || A.length < 3) return 0;
+
+    int dif = A[1] - A[0];
+    int lastIndex = 0, cnt = 0;
+    for (int i = 2; i < A.length; ++i) {
+        int newDif = A[i] - A[i - 1];
+        if (newDif == dif) {
+            if (i - lastIndex >= 2) {
+                cnt += i - lastIndex - 1;
+            }
+        } else {
+            lastIndex = i - 1;
+            dif = newDif;
+        }
+    }
+
+    return cnt;
+}
